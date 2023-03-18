@@ -82,8 +82,8 @@ public class OffersController {
 
     @GetMapping("offers/details/{id}")
     public String getAllOffersDetails(Model model, @PathVariable Long id) {
-
         getCurentOffer(model, id);
+        model.addAttribute("currentUser",currentUser);
         return "details";
     }
 
@@ -99,6 +99,7 @@ public class OffersController {
 
         getEnginesAndTransmissionTypes(model);
         model.addAttribute("currentOffer",offer);
+        model.addAttribute("currentUser",currentUser);
         return "update";
     }
 

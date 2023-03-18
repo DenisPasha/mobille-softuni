@@ -4,8 +4,11 @@ import com.example.mobille.domein.entities.Model;
 import com.example.mobille.domein.entities.User;
 import com.example.mobille.domein.entities.enums.Engine;
 import com.example.mobille.domein.entities.enums.Transmission;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.boot.Banner;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,18 +16,22 @@ import java.time.LocalDateTime;
 public class OfferAddBindingModel {
 
     @NotNull
+    @NotEmpty
     private String description;
 
     @NotNull
     private Engine engine;
 
     @NotNull
+    @NotEmpty
     private String imageUrl;
     @NotNull
+    @Positive
     private int mileage;
 
 
     @NotNull
+    @Positive
     private BigDecimal price;
 
     @NotNull

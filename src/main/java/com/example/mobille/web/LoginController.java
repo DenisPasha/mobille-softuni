@@ -21,6 +21,7 @@ public class LoginController {
     public CurrentUser currentUser;
     private final ModelMapper modelMapper;
 
+
     public LoginController(UserService userService, CurrentUser currentUser, ModelMapper modelMapper) {
         this.userService = userService;
         this.currentUser = currentUser;
@@ -40,7 +41,6 @@ public class LoginController {
     }
     @GetMapping("users/login")
     public String getLogin(Model model){
-
         return "auth-login";
     }
 
@@ -58,6 +58,7 @@ public class LoginController {
         if (isUserLoggedIn){
             return "redirect:/";
         }
+
         return "redirect:users/login";
     }
 

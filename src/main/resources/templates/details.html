@@ -5,7 +5,7 @@
 
 <body>
 
-<th:block th:include="fragments/commons::navbar" ></th:block>
+<th:block th:include="fragments/commons::navbar" th:object="${currentUser}"></th:block>
 
 
 <div class="container-fluid" th:object="${currentOffer}">

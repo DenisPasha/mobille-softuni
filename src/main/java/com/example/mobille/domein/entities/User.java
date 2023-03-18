@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users" )
 public class User extends BaseEntity{
     //•	username –  username of the user.
     @Column

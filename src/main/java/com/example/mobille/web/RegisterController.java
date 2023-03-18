@@ -4,6 +4,7 @@ import com.example.mobille.domein.dtos.binding.RegisterBindingUserModel;
 import com.example.mobille.serices.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +20,12 @@ public class RegisterController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public RegisterController(UserService userService, ModelMapper modelMapper) {
+    public RegisterController(UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ModelAttribute
@@ -49,6 +52,8 @@ public class RegisterController {
          redirectAttributes.addFlashAttribute("userExists", true);
          return "redirect:register";
      }
+
+        registerBindingUserModel.setPassword(passwordEncoder.encode(registerBindingUserModel.getPassword()));
         userService.registerUser(registerBindingUserModel);
         return "redirect:login";
     }

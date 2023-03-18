@@ -8,6 +8,7 @@ import com.example.mobille.serices.UserRoleService;
 import com.example.mobille.serices.UserService;
 import com.example.mobille.util.CurrentUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,12 +19,14 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserRoleService userRoleService;
     private final CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, UserRoleService userRoleService, CurrentUser currentUser) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, UserRoleService userRoleService, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.userRoleService = userRoleService;
         this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(RegisterBindingUserModel registerBindingUserModel) {
-
         User user = modelMapper.map(registerBindingUserModel, User.class);
 
         user.setCreated(LocalDateTime.now());
@@ -52,8 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean findUserByUsernameAndPassword(String username , String password) {
-        User user = this.userRepository.findByUsernameAndPassword(username, password).orElse(null);
-        if (user!=null){
+
+        User user = this.userRepository.findByUsername(username).orElse(null);
+        if (user!=null && passwordEncoder.matches(password , user.getPassword())){
             currentUser.setId(user.getId());
             currentUser.setUsername(user.getUsername());
             return true;

@@ -5,9 +5,9 @@
 
 <body>
 
-    <div>
-        <th:block th:include="fragments/commons::navbar" ></th:block>
-    </div>
+<div>
+    <th:block th:include="fragments/commons::navbar" th:object="${currentUser}"></th:block>
+</div>
 
 
 <div class="container" th:object="${currentUser}">
