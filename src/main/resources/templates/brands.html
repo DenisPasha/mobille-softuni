@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+
+<th:block th:include="fragments/commons::head" ></th:block>
+
+<body>
+
+<th:block th:include="fragments/commons::navbar" th:object="${currentUser}"></th:block>
+
+<div class="container">
+    <h2 class="text-center text-white m-3">All Brands</h2>
+    <div class='row mb-4 d-flex justify-content-around'>
+        <div  class="brand-section col-md-5 mr-auto d-flex flex-column" th:each="brand:${brands}" >
+            <h2>Car brand:
+                <span th:text="*{brand.getName()}">Brand name</span>
+            </h2>
+            <div>Models:
+                <table th:each="model:${brand.getModels()}">
+                    <tr>
+                        <th >No</th:block>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Start Year</th>
+                        <th>End Year</th>
+                        <th>Picture</th>
+                    </tr>
+                    <tr>
+                        <th>No</th>
+                        <th th:text="*{model.getName()}">Model Name</th>
+                        <th th:text="*{model.getCategory().name()}">Model Category</th>
+                        <th th:text="*{model.getStartYear()}">Model Start Year</th>
+                        <th th:text="*{model.getEndYear()}">Model End Year</th>
+                        <th><img alt="image" th:src="@{${model.getImageUrl()}}"
+                                 class="img-thumbnail rounded"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div>
+             <footer> </footer>
+    </div>
+</div>
+</body>
+</html>

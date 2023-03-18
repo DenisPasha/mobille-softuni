@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:object="${currentUser}" >
+
+<th:block th:include="fragments/commons::head" >   </th:block>
+
+<body>
+
+<div>
+    <th:block th:include="fragments/commons::navbar" ></th:block>
+</div>
+
+<div class="container-fluid">
+
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert" th:if="${userNotQualified}">
+        <strong>Oww noo!</strong> Please login to update your offers.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <h5 class="text-center text-white mt-5">Welcome to MobiLeLeLe</h5>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>
